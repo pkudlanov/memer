@@ -38,17 +38,14 @@ describe('app routes', () => {
 			});
 	});
 
-	it('gets all memes with GET', () => {
+	it('gets all memes with GET', async() => {
 		const meme = await Meme.create({ image: 'lib/assets/child-fist.jpg' });
 
 		return request(app)
 			.get('/api/v1/memes')
 			.then(res => {
-				expect(res.body).toEqual({
-					_id: expect.any(String),
-					image: 'lib/assets/child-fist.jpg',
-					__v: 0
-				})
-			})
+				const memeJSON = JSON.parse(JSON.stringify(meme));
+				expect(res.body).toEqual([memeJSON]);
+			});
 	});
 });
