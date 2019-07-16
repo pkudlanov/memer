@@ -62,4 +62,16 @@ describe('app routes', () => {
 				});
 			});
 	});
+
+	it('updates a meme by id with PUT/:id', async() => {
+		const meme = await Meme.create({ image: 'lib/assets/child-fist.jpg' });
+
+		return request(app)
+			.put(`/api/v1/memes/${meme.id}`)
+			.send({ top: 'Those Dirty', bottom: 'No. 2 Pencils' })
+			.then(res => {
+				expect(res.body.top).toEqual('Those Dirty');
+				expect(res.body.bottom).toEqual('No. 2 Pencils');
+			});
+	});
 });
