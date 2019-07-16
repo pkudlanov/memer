@@ -48,4 +48,18 @@ describe('app routes', () => {
 				expect(res.body).toEqual([memeJSON]);
 			});
 	});
+
+	it('gets a meme by id with GET/:id', async() => {
+		const meme = await Meme.create({ image: 'lib/assets/child-fist.jpg' });
+
+		return request(app)
+			.get(`/api/v1/memes/${meme._id}`)
+			.then(res => {
+				expect(res.body).toEqual({
+					_id: expect.any(String),
+					image: 'lib/assets/child-fist.jpg',
+					__v: 0
+				});
+			});
+	});
 });
