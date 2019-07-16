@@ -4,6 +4,7 @@ const request = require('supertest');
 const app = require('../lib/app');
 const connect = require('../lib/utils/connect');
 const mongoose = require('mongoose');
+const Meme = require('../lib/models/Meme');
 
 describe('app routes', () => {
 	beforeAll(() => {
@@ -35,5 +36,19 @@ describe('app routes', () => {
 					__v: 0
 				});
 			});
+	});
+
+	it('gets all memes with GET', () => {
+		const meme = await Meme.create({ image: 'lib/assets/child-fist.jpg' });
+
+		return request(app)
+			.get('/api/v1/memes')
+			.then(res => {
+				expect(res.body).toEqual({
+					_id: expect.any(String),
+					image: 'lib/assets/child-fist.jpg',
+					__v: 0
+				})
+			})
 	});
 });
