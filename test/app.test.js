@@ -74,4 +74,14 @@ describe('app routes', () => {
 				expect(res.body.bottom).toEqual('No. 2 Pencils');
 			});
 	});
+
+	it('deletes a meme by id with DELETE/:id', async() => {
+		const meme = await Meme.create({ image: 'lib/assets/child-fist.jpg' });
+
+		return request(app)
+			.delete(`/api/v1/memes/${meme.id}`)
+			.then(res => {
+				expect(res.body.image).toEqual('lib/assets/child-fist.jpg');
+			});
+	});
 });
