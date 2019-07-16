@@ -20,7 +20,7 @@ describe('app routes', () => {
 
 	it('creates a meme with POST', () => {
 		return request(app)
-			.post('./api/v1/memes')
+			.post('/api/v1/memes')
 			.send({
 				top: 'Those Dirty',
 				image: 'lib/assets/child-fist.jpg',
